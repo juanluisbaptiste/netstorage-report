@@ -20,6 +20,5 @@ RUN chmod 755 /cachesimple-scripts/netstorage/run_nsreport.sh
 
 WORKDIR /cachesimple-scripts/netstorage/
 VOLUME ["/var/lib/akamai"]
-#CMD bash -x /cachesimple-scripts/netstorage/reporteNS.sh -l -r 35985/
 #CMD ["./reporteNS.sh", "-l", "-r", "35985/", "-d", "/var/lib/akamai/netstorage/remote"]
 CMD ["./run_nsreport.sh"]

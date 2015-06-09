@@ -11,7 +11,9 @@ netstorage:
   - /var/lib/akamai/
   - ../../../../cachesimple-scripts:/cachesimple-scripts
   environment:
-    - REMOTEPATH=35985/evonik
+    - REMOTEPATH=35985/mobilize
+#    - NO_REPORT="iqmetrix evonik realworldtraining"
+    - NO_REPORT="web"
   privileged: true
 
   
