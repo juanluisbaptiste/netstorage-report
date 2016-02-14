@@ -9,6 +9,7 @@ RUN mkdir -p /root/.ssh/ && \
     mkdir -p /var/lib/akamai/netstorage/{remote,reports}
 # Copy over private key, and set permissions
 ADD id_deploy_csi /root/.ssh/id_rsa
+RUN chmod -R 600 /root/.ssh 
 # Create known_hosts
 RUN touch /root/.ssh/known_hosts
 # Add bitbuckets key
