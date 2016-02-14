@@ -19,9 +19,9 @@ publish:
       - $$COMMIT
     file: otrs/Dockerfile
     context: otrs
-    load: docker/image-otrs.tar
+    load: docker/image.tar
     save:
-      destination: docker/image-otrs.tar
+      destination: docker/image.tar
       tag: latest
     environment:
       - DOCKER_LAUNCH_DEBUG=true
@@ -29,4 +29,4 @@ publish:
     #storage_driver: vfs
   cache:
     mount:
-      - docker/image-otrs.tar
+      - docker/image.tar
