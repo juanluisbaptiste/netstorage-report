@@ -1,10 +1,10 @@
 postfix:
   image: juanluisbaptiste/postfix:latest
-  expose: 
+  expose:
   - "25"
   env_file: ../../credentials-smtp.env
 netstorage:
-  image: juanluisbaptiste/netstorage:latest
+  image: tutum.co/juanluisbaptiste/cachesimple-netstorage:latest
   links:
   - postfix:postfix
   volumes:
