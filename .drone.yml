@@ -17,8 +17,7 @@ publish:
     tag:
       - latest
       - $$COMMIT
-    file: otrs/Dockerfile
-    context: otrs
+    file: Dockerfile
     load: docker/image.tar
     save:
       destination: docker/image.tar
