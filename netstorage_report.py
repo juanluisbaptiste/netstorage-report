@@ -51,6 +51,13 @@ def get_dir_size(path):
     data, r = request.du(path)
     return data.du['du-info'].bytes
 
+def get_subdirs_sizes(subdirs):
+    for f in subdirs:
+        if f['type'] == 'dir' :
+          dir_size = int(get_dir_size(f['name']))
+          dir_sizes[f['name']] = dir_size
+    return dir_sizes
+
 def get_subdirs(path):
     request = ns.api.Request(test_credentials['key_name'], test_credentials['key'],
                              test_credentials['cpcode'], test_credentials['host'],
@@ -62,13 +69,14 @@ def get_subdirs(path):
 
 def run():
 
+def calculate_total_size():
+    return sum(dir_sizes.values())
+
+def run():
     subdirs = get_subdirs('/')
-    for f in subdirs:
-        if f['type'] == 'dir' :
-          dir_size = float(get_dir_size(f['name']))
-          if dir_size > 0 :
-            dir_sizes[f['name']] = dir_size
-            print f['name'] + ': ' + human_size(dir_size)
+    subdirs_sizes = get_subdirs_sizes(subdirs)
+    print get_formatted_subdirs_sizes(subdirs_sizes)
+    print "%-20s: %-20s" % ("Total", human_size(calculate_total_size()))
 
 if __name__ == "__main__":
   run()
