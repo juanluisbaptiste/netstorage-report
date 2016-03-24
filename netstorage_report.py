@@ -64,10 +64,19 @@ def get_subdirs(path):
                              timestamp=timestamp, unique_id=unique_id)
 
     data, r = request.dir(path)
-    print data
+    #print data
     return data.stat['file']
 
-def run():
+def get_formatted_subdirs_sizes(sizes):
+    f = ""
+    for key, value in sizes.iteritems():
+        f += "%-20s: %-20s\n" % (key,human_size(value))
+    return f
+
+def print_program_header():
+    print "----- ------ --------- ------ ------- ----\n\
+Cache Simple NetStorage Report Program 2.0\n\
+----- ------ --------- ------ ------- ----\n\n"
 
 def calculate_total_size():
     return sum(dir_sizes.values())
@@ -75,6 +84,7 @@ def calculate_total_size():
 def run():
     subdirs = get_subdirs('/')
     subdirs_sizes = get_subdirs_sizes(subdirs)
+    print_program_header()
     print get_formatted_subdirs_sizes(subdirs_sizes)
     print "%-20s: %-20s" % ("Total", human_size(calculate_total_size()))
 
