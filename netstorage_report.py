@@ -35,7 +35,10 @@ test_credentials = get_test_credentials()
 
 def human_size(nbytes):
   suffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
-  rank = int((math.log10(nbytes)) / 3)
+  try:
+      rank = int((math.log10(nbytes)) / 3)
+  except ValueError:
+      rank = 0
   rank = min(rank, len(suffixes) - 1)
   human = nbytes / (1024.0 ** rank)
   f = ('%.2f' % human).rstrip('0').rstrip('.')
