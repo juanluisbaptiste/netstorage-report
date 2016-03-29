@@ -2,12 +2,15 @@ import sys
 import os
 import json
 import time
+import datetime
 import logging
 import tempfile
 import pytest
 import ntplib
 import netstoragekit as ns
 import math
+import smtplib
+from email.mime.text import MIMEText
 
 VERSION = "0.1"
 # Configure the logging level and stream to stdout to see the logs.
@@ -74,20 +77,56 @@ def get_formatted_subdirs_sizes(sizes):
         f += "%-20s: %-20s\n" % (key,human_size(value))
     return f
 
-def print_program_header():
-    print "----- ------ --------- ------ ------- ----\n\
+def get_program_header():
+    return "----- ------ --------- ------ ------- ----\n\
 Cache Simple NetStorage Report Program 2.0\n\
 ----- ------ --------- ------ ------- ----\n\n"
 
 def calculate_total_size():
     return sum(dir_sizes.values())
 
+def get_report_date():
+    d = datetime.date.today()
+    previous_month = d.month - 1
+    previous_month_date = datetime.datetime(d.year,previous_month,d.day)
+    return previous_month_date.strftime('%B') + " " + str(d.year)
+
+def save_report(subdirs_sizes):
+    data = ""
+    data += get_program_header()
+    data += get_formatted_subdirs_sizes(subdirs_sizes)
+    data += "%-21s: %-20s\n" % ("\nTotal", human_size(calculate_total_size()))
+    data += "\n--\nProgram version: %s\n" % VERSION
+    save_report_file(data)
+
+def save_report_file(data):
+    f = open('reports/' + get_report_date() + '.txt', 'w')
+    f.write(data)
+    f.close
+
+def send_email():
+    fp = open('reports/' + get_report_date() + '.txt', 'rb')
+    # Create a text/plain message
+    msg = MIMEText(fp.read())
+    fp.close()
+    from_ = 'nsreport@cachesimple.com'
+    dest = 'juan.baptiste@gmail.com'
+    msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
+    msg['From'] = from_
+    msg['To'] = dest
+    s = smtplib.SMTP('localhost')
+    s.sendmail(from_, dest, msg.as_string())
+    s.quit()
+
 def run():
+    #print get_report_date()
     subdirs = get_subdirs('/')
     subdirs_sizes = get_subdirs_sizes(subdirs)
-    print_program_header()
+    save_report(subdirs_sizes)
+    send_email()
+    print get_program_header()
     print get_formatted_subdirs_sizes(subdirs_sizes)
-    print "%-20s: %-20s" % ("Total", human_size(calculate_total_size()))
+    print "%-21s: %-20s" % ("Total", human_size(calculate_total_size()))
 
 if __name__ == "__main__":
   run()
