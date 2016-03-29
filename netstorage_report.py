@@ -9,6 +9,7 @@ import ntplib
 import netstoragekit as ns
 import math
 
+VERSION = "0.1"
 # Configure the logging level and stream to stdout to see the logs.
 #logging.basicConfig(level=logging.DEBUG,
 #                    format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
