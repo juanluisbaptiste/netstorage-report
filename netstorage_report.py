@@ -14,9 +14,9 @@ from email.mime.text import MIMEText
 
 VERSION = "0.1"
 # Configure the logging level and stream to stdout to see the logs.
-#logging.basicConfig(level=logging.DEBUG,
-#                    format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
-#                    stream=sys.stdout)
+logging.basicConfig(level=logging.INFO,
+                    format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
+                    stream=sys.stdout)
 
 # Sample timestamp and unique_id to test
 # expected responses against the aactual ones using the same data
@@ -78,9 +78,9 @@ def get_formatted_subdirs_sizes(sizes):
     return f
 
 def get_program_header():
-    return "----- ------ --------- ------ ------- ----\n\
-Cache Simple NetStorage Report Program 2.0\n\
------ ------ --------- ------ ------- ----\n\n"
+    return "----- ------ --------- ------ -------\n\
+Cache Simple NetStorage Report Program\n\
+----- ------ --------- ------ -------\n\n"
 
 def calculate_total_size():
     return sum(dir_sizes.values())
