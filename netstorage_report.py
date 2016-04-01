@@ -27,7 +27,7 @@ dir_sizes = {}
 def get_test_credentials():
     # This file is installed in the home dir as a .json.dist file
     # that the user should update in order for these tests to run
-    file = '~/.netstoragekit_test_credentials.json'
+    file = '~/.netstoragekit.json'
     file = os.path.expanduser(file)
     if not os.path.exists(file):
         return None
