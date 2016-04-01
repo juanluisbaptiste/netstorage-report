@@ -107,18 +107,29 @@ def save_report_file(data):
     f.close
 
 def send_email():
-    fp = open('reports/' + get_report_date() + '.txt', 'rb')
-    # Create a text/plain message
-    msg = MIMEText(fp.read())
-    fp.close()
-    from_ = 'nsreport@cachesimple.com'
-    dest = 'juan.baptiste@gmail.com'
-    msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
-    msg['From'] = from_
-    msg['To'] = dest
-    s = smtplib.SMTP('postifx')
-    s.sendmail(from_, dest, msg.as_string())
-    s.quit()
+    try:
+        fp = open('reports/' + get_report_date() + '.txt', 'rb')
+    except IOError as e:
+        print "ERROR: Cannot open report file."
+        sys.exit(1)
+    try:
+        # Create a text/plain message
+        msg = MIMEText(fp.read())
+        fp.close()
+        from_ = 'nsreport@cachesimple.com'
+        dest = 'juan.baptiste@gmail.com'
+        msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
+        msg['From'] = from_
+        msg['To'] = dest
+        s = smtplib.SMTP('localhost')
+        s.sendmail(from_, dest, msg.as_string())
+        s.quit()
+    except gaierror,e:
+        print "ERROR: Cannot connect to SMTP server: " + str(e[1])
+        sys.exit(1)
+    except smtplib.SMTPException as e:
+        print "ERROR: Cannot send email: " + e.value
+        sys.exit(1)
 
 def run():
     #print get_report_date()
