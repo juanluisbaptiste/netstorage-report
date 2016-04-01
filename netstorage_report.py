@@ -114,7 +114,7 @@ def send_email():
     msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
     msg['From'] = from_
     msg['To'] = dest
-    s = smtplib.SMTP('localhost')
+    s = smtplib.SMTP('postifx')
     s.sendmail(from_, dest, msg.as_string())
     s.quit()
 
