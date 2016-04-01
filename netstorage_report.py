@@ -12,7 +12,7 @@ import math
 import smtplib
 from email.mime.text import MIMEText
 
-VERSION = "0.1"
+__version__ = "0.1"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.INFO,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -96,7 +96,7 @@ def save_report(subdirs_sizes):
     data += get_program_header()
     data += get_formatted_subdirs_sizes(subdirs_sizes)
     data += "%-21s: %-20s\n" % ("\nTotal", human_size(calculate_total_size()))
-    data += "\n--\nProgram version: %s\n" % VERSION
+    data += "\n--\nProgram version: %s\n" % __version__
     save_report_file(data)
 
 def save_report_file(data):
