@@ -12,7 +12,7 @@ import netstoragekit as ns
 import math
 import smtplib
 from email.mime.text import MIMEText
-from socket import gaierror
+from socket import error,gaierror
 
 __version__ = "0.1"
 # Configure the logging level and stream to stdout to see the logs.
