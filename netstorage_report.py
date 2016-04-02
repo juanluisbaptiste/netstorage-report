@@ -102,13 +102,13 @@ def save_report(subdirs_sizes):
     save_report_file(data)
 
 def save_report_file(data):
-    f = open('reports/' + get_report_date() + '.txt', 'w')
+    f = open('/reports/' + get_report_date() + '.txt', 'w')
     f.write(data)
     f.close
 
 def send_email():
     try:
-        fp = open('reports/' + get_report_date() + '.txt', 'rb')
+        fp = open('/reports/' + get_report_date() + '.txt', 'rb')
     except IOError as e:
         print "ERROR: Cannot open report file."
         sys.exit(1)
