@@ -8,7 +8,7 @@ RUN yum install -y bc curlftpfs fuse-curlftpfs git mailx python python-setuptool
 RUN mkdir -p /root/.ssh/
 # Copy over private key, and set permissions
 ADD id_deploy_csi /root/.ssh/id_rsa
-ADD netstoragekit.json /root/.netstoragekit.json
+#ADD netstoragekit.json /root/.netstoragekit.json
 ADD run.sh /
 RUN chmod -R 600 /root/.ssh && \
     touch /root/.ssh/known_hosts && \
