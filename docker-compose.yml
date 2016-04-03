@@ -1,6 +1,6 @@
 postfix:
   image: juanluisbaptiste/postfix:latest
-  expose: 
+  expose:
   - "25"
   env_file: ../../credentials-smtp.env
 netstorage:
@@ -8,12 +8,11 @@ netstorage:
   links:
   - postfix:postfix
   volumes:
-  - /var/lib/akamai/
-  - ../../../../cachesimple-scripts:/cachesimple-scripts
-  environment:
-    - REMOTEPATH=35985/
-#    - NO_REPORT="iqmetrix evonik realworldtraining"
-#    - NO_REPORT="d2moto dist708234 florah index.html jbaptiste miikka mobilize otherside thingd truckingunlimited vivacity website"
-  privileged: true
-
-  
+  - /reports
+#   - /var/lib/akamai/
+#   - ../../../../cachesimple-scripts:/cachesimple-scripts
+#   environment:
+#     - REMOTEPATH=35985/
+# #    - NO_REPORT="iqmetrix evonik realworldtraining"
+# #    - NO_REPORT="d2moto dist708234 florah index.html jbaptiste miikka mobilize otherside thingd truckingunlimited vivacity website"
+#   privileged: true
