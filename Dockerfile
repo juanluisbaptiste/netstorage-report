@@ -19,6 +19,6 @@ RUN chmod -R 600 /root/.ssh && \
     chmod 755 /cachesimple-scripts/netstorage/new/netstorage_report.py && \
     easy_install pip && \
     pip install netstoragekit && \
-    chmod 755 /run.sh && mkdir /reports
+    mkdir /reports
 VOLUME ["/reports"]
 CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
