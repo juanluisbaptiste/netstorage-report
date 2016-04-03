@@ -20,8 +20,5 @@ RUN chmod -R 600 /root/.ssh && \
     easy_install pip && \
     pip install netstoragekit && \
     chmod 755 /run.sh && mkdir /reports
-# WORKDIR /cachesimple-scripts/netstorage/
-# #RUN pwd && ls -l new
-# VOLUME ["/var/lib/akamai"]
-#CMD ["./reporteNS.sh", "-l", "-r", "35985/", "-d", "/var/lib/akamai/netstorage/remote"]
+VOLUME ["/reports"]
 CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
