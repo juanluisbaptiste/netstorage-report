@@ -9,7 +9,6 @@ RUN mkdir -p /root/.ssh/
 # Copy over private key, and set permissions
 ADD id_deploy_csi /root/.ssh/id_rsa
 #ADD netstoragekit.json /root/.netstoragekit.json
-ADD run.sh /
 RUN chmod -R 600 /root/.ssh && \
     touch /root/.ssh/known_hosts && \
 # Add bitbuckets key
