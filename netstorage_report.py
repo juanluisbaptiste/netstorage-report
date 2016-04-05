@@ -128,7 +128,7 @@ def send_email():
         print "ERROR: Cannot connect to SMTP server: " + str(e[1])
         sys.exit(1)
     except smtplib.SMTPException as e:
-        print "ERROR: Cannot send email: " + e.value
+        print "ERROR: Cannot send email: " + str(e[0])
         sys.exit(1)
 
 def run():
