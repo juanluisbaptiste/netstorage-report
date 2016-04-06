@@ -25,6 +25,8 @@ logging.basicConfig(level=logging.ERROR,
 timestamp = int(time.time())
 unique_id = int(timestamp * 2.5)
 dir_sizes = {}
+from_ = os.environ.get('SMTP_FROM', 'root@cachesimple.com')
+dest = os.environ.get('SMTP_TO', 'jbaptiste@cachesimple.com')
 
 def get_test_credentials():
     # This file is installed in the home dir as a .json.dist file
@@ -116,8 +118,6 @@ def send_email():
         # Create a text/plain message
         msg = MIMEText(fp.read())
         fp.close()
-        from_ = 'nsreport@cachesimple.com'
-        dest = 'juan.baptiste@gmail.com'
         msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
         msg['From'] = from_
         msg['To'] = dest
