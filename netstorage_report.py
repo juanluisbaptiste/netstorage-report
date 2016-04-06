@@ -14,7 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-11-g34de706"
+__version__ = "0.1.0-14-g55e57dc"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
