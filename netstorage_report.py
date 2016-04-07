@@ -14,7 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-15-geca6d74"
+__version__ = "0.1.0-16-ga6931bc"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -120,7 +120,7 @@ def send_email():
         fp.close()
         msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
         msg['From'] = from_
-        msg['To'] = dest
+        msg['To'] = dest.split(',')
         s = smtplib.SMTP('postfix')
         s.sendmail(from_, dest, msg.as_string())
         s.quit()
