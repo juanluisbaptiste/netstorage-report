@@ -14,7 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-17-g6ce89e6"
+__version__ = "0.1.0-18-gc4ed2f1"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -120,9 +120,9 @@ def send_email():
         fp.close()
         msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
         msg['From'] = from_
-        msg['To'] = dest.split(',')
+        msg['To'] = dest
         s = smtplib.SMTP('postfix')
-        s.sendmail(from_, dest, msg.as_string())
+        s.sendmail(from_, dest.split(','), msg.as_string())
         s.quit()
     except error,e:
         print "ERROR: Cannot connect to SMTP server: " + str(e[1])
@@ -133,11 +133,12 @@ def send_email():
 
 def run():
     #print get_report_date()
+    print get_program_header()
+    print "Sending report to: " + dest + "\n"
     subdirs = get_subdirs('/')
     subdirs_sizes = get_subdirs_sizes(subdirs)
     save_report(subdirs_sizes)
     send_email()
-    print get_program_header()
     print get_formatted_subdirs_sizes(subdirs_sizes)
     print "%-21s: %-20s" % ("Total", human_size(calculate_total_size()))
 
