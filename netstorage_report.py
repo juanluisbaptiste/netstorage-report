@@ -14,7 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-19-gbc2fb47"
+__version__ = "0.1.0-20-g1e7b658"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -139,7 +139,7 @@ def run():
     subdirs = get_subdirs('/')
     subdirs_sizes = get_subdirs_sizes(subdirs)
     save_report(subdirs_sizes)
-    #send_email()
+    send_email()
     print get_formatted_subdirs_sizes(subdirs_sizes)
     print "%-21s: %-20s" % ("Total", human_size(calculate_total_size()))
 
