@@ -1,4 +1,8 @@
 #!/bin/python
+# Script for calculating the NetStorage use for CSI customers.
+# Author: Juan Luis baptiste <jbaptiste@cachesimple.com>
+#
+
 import sys
 import os
 import json
@@ -14,7 +18,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-22-g49924b4"
+__version__ = "0.1.0-24-gb38cd00"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -53,11 +57,16 @@ def human_size(nbytes):
   return '%s %s' % (f, suffixes[rank])
 
 def get_dir_size(path):
+    size_bytes = 0
     request = ns.api.Request(test_credentials['key_name'], test_credentials['key'],
                              test_credentials['cpcode'], test_credentials['host'],
                              timestamp=timestamp, unique_id=unique_id)
     data, r = request.du(path)
-    return data.du['du-info'].bytes
+    try:
+        size_bytes = data.du['du-info'].bytes
+    except HTTPError as e:
+        print "ERROR: " + str(e[1])
+    return size_bytes
 
 def get_subdirs_sizes(subdirs):
     for f in subdirs:
