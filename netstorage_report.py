@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 # Script for calculating the NetStorage use for CSI customers.
 # Author: Juan Luis baptiste <jbaptiste@cachesimple.com>
 #
