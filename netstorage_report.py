@@ -18,7 +18,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-24-gb38cd00"
+__version__ = "0.1.0-25-g06d1f7d"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -107,6 +107,7 @@ def get_report_date():
 def save_report(subdirs_sizes):
     data = ""
     data += get_program_header()
+    data += "Date: " + get_report_date() + "\n"
     data += get_formatted_subdirs_sizes(subdirs_sizes)
     data += "%-21s: %-20s\n" % ("\nTotal", human_size(calculate_total_size()))
     data += "\n--\nProgram version: %s\n" % __version__
@@ -143,7 +144,6 @@ def send_email():
 def run():
     #print get_report_date()
     print get_program_header()
-    print "Date: " + get_report_date()
     print "Sending report to: " + dest.replace(",", "\n\t\t   ").strip() + "\n"
     subdirs = get_subdirs(os.environ.get('REMOTEPATH', '/'))
     subdirs_sizes = get_subdirs_sizes(subdirs)
