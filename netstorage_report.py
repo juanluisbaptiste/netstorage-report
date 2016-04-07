@@ -14,7 +14,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-18-gc4ed2f1"
+__version__ = "0.1.0-19-gbc2fb47"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -134,11 +134,12 @@ def send_email():
 def run():
     #print get_report_date()
     print get_program_header()
-    print "Sending report to: " + dest + "\n"
+    print "Date: " + get_report_date()
+    print "Sending report to: " + dest.replace(",", "\n\t\t   ").strip() + "\n"
     subdirs = get_subdirs('/')
     subdirs_sizes = get_subdirs_sizes(subdirs)
     save_report(subdirs_sizes)
-    send_email()
+    #send_email()
     print get_formatted_subdirs_sizes(subdirs_sizes)
     print "%-21s: %-20s" % ("Total", human_size(calculate_total_size()))
 
