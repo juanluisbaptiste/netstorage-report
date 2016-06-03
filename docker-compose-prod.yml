@@ -9,3 +9,7 @@ netstorage:
   - postfix:postfix
   volumes:
   - /reports
+  - /home/juancho/.netstoragekit.json:/root/.netstoragekit.json
+  environment:
+  - REMOTEPATH=/
+  - SMTP_TO=juan.baptiste@gmail.com,jbaptiste@cachesimple.com
