@@ -2,7 +2,7 @@ postfix:
   image: juanluisbaptiste/postfix:latest
   expose:
   - "25"
-  env_file: ../../credentials-smtp.env
+  env_file: ../credentials-smtp.env
 netstorage:
   image: tutum.co/juanluisbaptiste/cachesimple-netstorage:latest
   links:
