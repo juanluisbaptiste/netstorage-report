@@ -4,7 +4,7 @@ postfix:
   - "25"
   env_file: ../credentials-smtp.env
 netstorage:
-  image: tutum.co/juanluisbaptiste/cachesimple-netstorage:latest
+  image: registry.ctecsas.com/juanluisbaptiste/cachesimple-netstorage:latest
   links:
   - postfix:postfix
   volumes:
