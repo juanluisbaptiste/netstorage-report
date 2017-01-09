@@ -9,11 +9,11 @@ notify:
     password: $$SMTP_PASSWORD
 publish:
   docker:
-    registry: tutum.co
+    registry: registry.ctecsas.com
     username: $$DOCKER_USER
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
-    repo: $$DOCKER_USER/cachesimple-netstorage
+    repo: cachesimple/netstorage
     tag:
       - latest
       - $$COMMIT
