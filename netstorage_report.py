@@ -18,7 +18,7 @@ import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
 
-__version__ = "0.1.0-25-g06d1f7d"
+__version__ = "0.1.0-26-g8e2d82a"
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
                     format="%(levelname)s[%(name)s.%(funcName)s:%(lineno)s] %(message)s",
@@ -101,8 +101,12 @@ def calculate_total_size():
 def get_report_date():
     d = datetime.date.today()
     previous_month = d.month - 1
-    previous_month_date = datetime.datetime(d.year,previous_month,d.day)
-    return previous_month_date.strftime('%B') + " " + str(d.year)
+    if previous_month == 12 :
+        year = d.year - 1
+    else
+        year= d.year
+    previous_month_date = datetime.datetime(year,previous_month,d.day)
+    return previous_month_date.strftime('%B') + " " + str(year)
 
 def save_report(subdirs_sizes):
     data = ""
@@ -151,6 +155,7 @@ def run():
     send_email()
     print get_formatted_subdirs_sizes(subdirs_sizes)
     print "%-21s: %-20s" % ("Total", human_size(calculate_total_size()))
+    sys.exit(0)
 
 if __name__ == "__main__":
   run()
