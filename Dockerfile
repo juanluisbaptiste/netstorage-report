@@ -1,17 +1,16 @@
 FROM centos:latest
 MAINTAINER Juan Luis Baptiste <jbaptiste@cachesimple.com>
 
-RUN yum install -y epel-release
-RUN yum update -y
-RUN yum install -y bc curlftpfs fuse-curlftpfs git mailx python python-setuptools
-# Make ssh dir and netstorage directories
-RUN mkdir -p /root/.ssh/
-# Copy over private key, and set permissions
+# Copy over private key
 ADD id_deploy_csi /root/.ssh/id_rsa
 #ADD netstoragekit.json /root/.netstoragekit.json
-RUN chmod -R 600 /root/.ssh && \
+
+RUN yum install -y epel-release && \
+    yum update -y && \
+    yum install -y bc cron curlftpfs fuse-curlftpfs git mailx python python-setuptools ssh && \
+    mkdir -p /root/.ssh/ && \
+    chmod -R 600 /root/.ssh && \
     touch /root/.ssh/known_hosts && \
-# Add bitbuckets key
     ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts && \
 # Clone the conf files into the docker container
     git clone git@bitbucket.org:jbaptiste_cs/cachesimple-scripts.git && \
