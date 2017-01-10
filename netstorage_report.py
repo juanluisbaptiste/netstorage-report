@@ -103,7 +103,7 @@ def get_report_date():
     previous_month = d.month - 1
     if previous_month == 12 :
         year = d.year - 1
-    else
+    else:
         year= d.year
     previous_month_date = datetime.datetime(year,previous_month,d.day)
     return previous_month_date.strftime('%B') + " " + str(year)
