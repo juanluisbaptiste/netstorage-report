@@ -3,11 +3,10 @@ MAINTAINER Juan Luis Baptiste <jbaptiste@cachesimple.com>
 
 # Copy over private key
 ADD id_deploy_csi /root/.ssh/id_rsa
-#ADD netstoragekit.json /root/.netstoragekit.json
 
 RUN yum install -y epel-release && \
     yum update -y && \
-    yum install -y bc cron curlftpfs fuse-curlftpfs git mailx python python-setuptools ssh && \
+    yum install -y bc cronie curlftpfs fuse-curlftpfs git mailx python python-setuptools ssh && \
     mkdir -p /root/.ssh/ && \
     chmod -R 600 /root/.ssh && \
     touch /root/.ssh/known_hosts && \
