@@ -103,7 +103,9 @@ def calculate_total_size():
 def get_report_date():
     d = datetime.date.today()
     previous_month = d.month - 1
-    if previous_month == 12 :
+    #Handle when last month is December
+    if previous_month < 1 :
+        previous_month = 12
         year = d.year - 1
     else:
         year= d.year
