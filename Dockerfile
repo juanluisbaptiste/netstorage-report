@@ -17,6 +17,6 @@ RUN yum install -y epel-release && \
     chmod 755 /cachesimple-scripts/netstorage/new/netstorage_report.py && \
     easy_install pip && \
     pip install netstoragekit && \
-    mkdir /reports
+    ln -sf /dev/stdout /var/log/cron.log && \
 VOLUME ["/reports"]
 CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
