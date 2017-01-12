@@ -24,4 +24,5 @@ RUN chmod 755 /start.sh && \
 #ADD netstoragekit.json /root/.netstoragekit.json
 
 VOLUME ["/reports"]
-CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
+#CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
+CMD "/start.sh"
