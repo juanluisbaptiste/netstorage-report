@@ -1,5 +1,6 @@
 FROM centos:latest
 MAINTAINER Juan Luis Baptiste <jbaptiste@cachesimple.com>
+ENV CRONJOB_TIME "1 12 1 * *"
 
 # Copy over private key
 ADD id_deploy_csi /root/.ssh/id_rsa
@@ -18,6 +19,8 @@ RUN yum install -y epel-release && \
     easy_install pip && \
     pip install netstoragekit && \
     ln -sf /dev/stdout /var/log/cron.log && \
+    echo "${CRONJOB_TIME} root /run.sh > /var/log/cron.log 2>&1" > /etc/cron.d/netstorage && \
+    chmod 644 /etc/cron.d/netstorage
 ADD *.sh /
 RUN chmod 755 /start.sh && \
     chmod 755 /run.sh
