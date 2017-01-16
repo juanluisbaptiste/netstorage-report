@@ -21,9 +21,9 @@ RUN yum install -y epel-release && \
     ln -sf /dev/stdout /var/log/cron.log && \
     echo "${CRONJOB_TIME} root /run.sh > /var/log/cron.log 2>&1" > /etc/cron.d/netstorage && \
     chmod 644 /etc/cron.d/netstorage
-ADD *.sh /
-RUN chmod 755 /start.sh && \
-    chmod 755 /run.sh
+ADD start.sh /
+ADD run.sh /
+RUN chmod 755 /*.sh
 #ADD netstoragekit.json /root/.netstoragekit.json
 
 VOLUME ["/reports"]
