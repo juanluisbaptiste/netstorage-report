@@ -17,6 +17,12 @@ import math
 import smtplib
 from email.mime.text import MIMEText
 from socket import error,gaierror
+import subprocess as sp
+
+SOURCE = '/root/vars.env'
+proc = sp.Popen(['bash', '-c', 'source {} && env'.format(SOURCE)], stdout=sp.PIPE)
+
+source_env = {tup[0].strip(): tup[1].strip() for tup in map(lambda s: s.strip().split('=', 1), proc.stdout)}
 
 __version__ = "0.1.0-26-g8e2d82a"
 path = "/data/cachesimple/netstorage/reports/"
@@ -152,6 +158,7 @@ def send_email():
         sys.exit(1)
 
 def run():
+    print source_env
     #print get_report_date()
     print get_program_header()
     print "Sending report to: " + dest.replace(",", "\n\t\t   ").strip() + "\n"
