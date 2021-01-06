@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7
 MAINTAINER Juan Luis Baptiste <jbaptiste@cachesimple.com>
 ENV CRONJOB_TIME "1 12 1 * *"
 
