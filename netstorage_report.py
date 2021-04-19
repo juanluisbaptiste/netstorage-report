@@ -37,8 +37,16 @@ logging.basicConfig(level=logging.ERROR,
 timestamp = int(time.time())
 unique_id = int(timestamp * 2.5)
 dir_sizes = {}
-from_ = os.environ.get('SMTP_FROM', 'root@cachesimple.com')
-dest = os.environ.get('SMTP_TO', 'jbaptiste@cachesimple.com')
+from_ = os.environ.get('SMTP_FROM')
+dest = os.environ.get('SMTP_TO')
+smtp_server = os.environ.get('SMTP_SERVER', 'postfix')
+remote_path = os.environ.get('REMOTEPATH', '/')
+
+if from_ is None:
+    raise OSError("SMTP_FROM environment is not set.")
+
+if dest is None:
+    raise OSError("SMTP_TO environment is not set.")
 
 def get_test_credentials():
     # This file is installed in the home dir as a .json.dist file
@@ -147,7 +155,7 @@ def send_email():
         msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
         msg['From'] = from_
         msg['To'] = dest
-        s = smtplib.SMTP('postfix')
+        s = smtplib.SMTP(smtp_server)
         s.sendmail(from_, dest.split(','), msg.as_string())
         s.quit()
     except error,e:
@@ -162,7 +170,7 @@ def run():
     #print get_report_date()
     print get_program_header()
     print "Sending report to: " + dest.replace(",", "\n\t\t   ").strip() + "\n"
-    subdirs = get_subdirs(os.environ.get('REMOTEPATH', '/'))
+    subdirs = get_subdirs(remote_path)
     subdirs_sizes = get_subdirs_sizes(subdirs)
     save_report(subdirs_sizes)
     send_email()
