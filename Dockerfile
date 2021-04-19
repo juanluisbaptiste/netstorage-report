@@ -2,21 +2,12 @@ FROM centos:7
 MAINTAINER Juan Luis Baptiste <jbaptiste@cachesimple.com>
 ENV CRONJOB_TIME "1 12 1 * *"
 
-# Copy over private key
-ADD id_deploy_csi /root/.ssh/id_rsa
-
+COPY netstorage_report.py /
 RUN yum install -y epel-release && \
     yum update -y && \
-    yum install -y bc cronie curlftpfs fuse-curlftpfs git mailx python python-setuptools ssh && \
-    mkdir -p /root/.ssh/ && \
-    chmod -R 600 /root/.ssh && \
-    touch /root/.ssh/known_hosts && \
-    ssh-keyscan bitbucket.org >> /root/.ssh/known_hosts && \
-# Clone the conf files into the docker container
-    git clone git@bitbucket.org:jbaptiste_cs/cachesimple-scripts.git && \
-    chmod 755 /cachesimple-scripts/netstorage/run_nsreport.sh && \
-    chmod 755 /cachesimple-scripts/netstorage/new/netstorage_report.py && \
-    easy_install pip && \
+    yum install -y bc cronie curlftpfs fuse-curlftpfs mailx python python-setuptools ssh && \
+    chmod 755 /netstorage_report.py && \
+    easy_install pip==20.3.4 && \
     pip install netstoragekit && \
     ln -sf /dev/stdout /var/log/cron.log && \
     echo "${CRONJOB_TIME} root /run.sh > /var/log/cron.log 2>&1" > /etc/cron.d/netstorage && \
@@ -27,5 +18,4 @@ RUN chmod 755 /*.sh
 #ADD netstoragekit.json /root/.netstoragekit.json
 
 VOLUME ["/reports"]
-#CMD "/cachesimple-scripts/netstorage/new/netstorage_report.py"
 CMD "/start.sh"
