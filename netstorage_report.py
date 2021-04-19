@@ -107,9 +107,9 @@ def get_formatted_subdirs_sizes(sizes):
     return f
 
 def get_program_header():
-    return "----- ------ --------- ------ --------\n\
-Cache Simple NetStorage Report Program\n\
------ ------ --------- ------ --------\n\n"
+    return "--------- ------ --------\n\
+NetStorage Report Program\n\
+--------- ------ --------\n\n"
 
 def calculate_total_size():
     return sum(dir_sizes.values())
@@ -152,7 +152,7 @@ def send_email():
         # Create a text/plain message
         msg = MIMEText(fp.read())
         fp.close()
-        msg['Subject'] = 'Cache Simple NetStorage Report for %s' % get_report_date()
+        msg['Subject'] = 'NetStorage Report for %s' % get_report_date()
         msg['From'] = from_
         msg['To'] = dest
         s = smtplib.SMTP(smtp_server)
