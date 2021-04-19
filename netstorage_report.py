@@ -25,7 +25,7 @@ proc = sp.Popen(['bash', '-c', 'source {} && env'.format(SOURCE)], stdout=sp.PIP
 source_env = {tup[0].strip(): tup[1].strip() for tup in map(lambda s: s.strip().split('=', 1), proc.stdout)}
 
 __version__ = "0.1.0-26-g8e2d82a"
-path = "/data/cachesimple/netstorage/reports/"
+path = "reports/"
 
 # Configure the logging level and stream to stdout to see the logs.
 logging.basicConfig(level=logging.ERROR,
